@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "InteractableListener.generated.h"
 
 UCLASS()
