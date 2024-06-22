@@ -3,44 +3,36 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "InputAction.h"
-#include "EnhancedInput/Public/EnhancedInputComponent.h" 
-#include "../../../../../../../../../Program Files/Epic Games/UE_5.3/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedActionKeyMapping.h"
+#include "GameFramework/Actor.h"  
 
-
-#include "InteractableInput.generated.h" 
-
+//esto siempre debajo
+#include "InteractableInput.generated.h"  
+  
 UCLASS()
 class CLASS_API AInteractableInput : public AActor
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this actor's properties
+public: 
 	AInteractableInput();
+	//void Initialize(Ac_InteractableManager* manager);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enhanced Input")
-	UInputMappingContext* inputMappingContext;
+private:
+	 //Ac_InteractableManager* InteractableManager; 
 
+protected: 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enhanced Input")
-	UInputAction* inputToInteract;
-
-protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void EnhancedInputInteraction();
+public:  
 
-	void SetupInputComponent(class UInputComponent* InputComponent);
-
-public:
-
-	void Interaction(); 
-	void NotifyActorBeginOverlap(AActor* OtherActor);
-	void NotifyActorEndOverlap(AActor* OtherActor);
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	 
+	void SetupInputComponent(); 
 
+
+
+	//UFUNCTION(BlueprintCallable, Category = "Interaction")
+	UFUNCTION(BlueprintImplementableEvent)
+	void Interact(); 
 };
