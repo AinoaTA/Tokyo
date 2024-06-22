@@ -4,22 +4,42 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "InteractableInput.generated.h"
+#include "InputAction.h"
+#include "EnhancedInput/Public/EnhancedInputComponent.h" 
+#include "../../../../../../../../../Program Files/Epic Games/UE_5.3/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedActionKeyMapping.h"
+
+
+#include "InteractableInput.generated.h" 
 
 UCLASS()
 class CLASS_API AInteractableInput : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AInteractableInput();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enhanced Input")
+	UInputMappingContext* inputMappingContext;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enhanced Input")
+	UInputAction* inputToInteract;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	void EnhancedInputInteraction();
+
+	void SetupInputComponent(class UInputComponent* InputComponent);
+
+public:
+
+	void Interaction(); 
+	void NotifyActorBeginOverlap(AActor* OtherActor);
+	void NotifyActorEndOverlap(AActor* OtherActor);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
