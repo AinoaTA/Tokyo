@@ -12,6 +12,11 @@ AInteractableInput::AInteractableInput()
 	UE_LOG(LogTemp, Warning, TEXT("Loading Constructor..."));
 }
 
+void AInteractableInput::Initialize(Ac_InteractableManager* manager)
+{
+	InteractableManager = manager;
+}
+
 //void AInteractableInput::Initialize(Ac_InteractableManager* manager)
 //{
 //	InteractableManager = manager;
@@ -21,6 +26,8 @@ void AInteractableInput::BeginPlay()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Interaction Begin play"));
 	Super::BeginPlay();
+
+	NextBeginPlay();
 
 	SetupInputComponent();
 
@@ -33,11 +40,13 @@ void AInteractableInput::Tick(float DeltaTime)
 
 void AInteractableInput::SetupInputComponent()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Setup Ineweweput!!! "));
 	APlayerController* FirstLocalPlayer = UGameplayStatics::GetPlayerController(this, 0);
 
 	// Ensure that the PlayerController and its InputComponent are valid before binding
 	if (IsValid(FirstLocalPlayer) && IsValid(FirstLocalPlayer->InputComponent))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Setup Input!!! "));
 		// Use BindAction or BindAxis on the InputComponent to establish the bindings
 		FirstLocalPlayer->InputComponent->BindAction(FName("c_interaction"), IE_Pressed, this, &AInteractableInput::Interact);
 	}
@@ -66,6 +75,11 @@ void AInteractableInput::SetupInputComponent()
 
 	//	UE_LOG(LogTemp, Warning, TEXT("setted"));
 	//}
+}
+
+void AInteractableInput::Remove(AInteractableInput* selfInterctable)
+{
+	InteractableManager->RemoveInteractable(selfInterctable);
 }
  
 

@@ -2,13 +2,15 @@
 
 
 #include "c_InteractableManager.h"
+
+#include "InteractableInput.h"  
 #include <Kismet/GameplayStatics.h>  
 
 
 // Sets default values
 Ac_InteractableManager::Ac_InteractableManager()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
@@ -21,13 +23,13 @@ void Ac_InteractableManager::BeginPlay()
 
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AInteractableInput::StaticClass(), FoundActors);
-	 
+
 	for (size_t i = 0; i < FoundActors.Num(); i++)
 	{
-		AddInteractable(Cast<AInteractableInput>(FoundActors[i]));		
+		AddInteractable(Cast<AInteractableInput>(FoundActors[i]));
 		//_interactables.Last()->OnInteraction.BindUFunction(this, FName("RemoveInteractable"));
-	/*	_interactables.Last()->Initialize(this);*/
-	} 
+		_interactables.Last()->Initialize(this);
+	}
 }
 
 // Called every frame

@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include <InteractableInput.h>
+//#include <InteractableInput.h>
  
 #include "c_InteractableManager.generated.h" 
+class AInteractableInput;
 
 UCLASS()
 class CLASS_API Ac_InteractableManager : public AActor
