@@ -15,12 +15,7 @@ AInteractableInput::AInteractableInput()
 void AInteractableInput::Initialize(Ac_InteractableManager* manager)
 {
 	InteractableManager = manager;
-}
-
-//void AInteractableInput::Initialize(Ac_InteractableManager* manager)
-//{
-//	InteractableManager = manager;
-//}
+} 
 
 void AInteractableInput::BeginPlay()
 {
@@ -29,8 +24,7 @@ void AInteractableInput::BeginPlay()
 
 	NextBeginPlay();
 
-	SetupInputComponent();
-
+	SetupInputComponent(); 
 }
 
 void AInteractableInput::Tick(float DeltaTime)
@@ -40,44 +34,20 @@ void AInteractableInput::Tick(float DeltaTime)
 
 void AInteractableInput::SetupInputComponent()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Setup Ineweweput!!! "));
+	//UE_LOG(LogTemp, Warning, TEXT("Entering in SetInputComponent"));
+
 	APlayerController* FirstLocalPlayer = UGameplayStatics::GetPlayerController(this, 0);
 
 	// Ensure that the PlayerController and its InputComponent are valid before binding
 	if (IsValid(FirstLocalPlayer) && IsValid(FirstLocalPlayer->InputComponent))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Setup Input!!! "));
-		// Use BindAction or BindAxis on the InputComponent to establish the bindings
+		/*UE_LOG(LogTemp, Warning, TEXT("Input Set"));*/
+		 
 		FirstLocalPlayer->InputComponent->BindAction(FName("c_interaction"), IE_Pressed, this, &AInteractableInput::Interact);
-	}
-
-	/*UE_LOG(LogTemp, Warning, TEXT("Setup Input!!! "));
-
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-
-	if (PlayerController)
-	{
-		InputComponent = NewObject<UInputComponent>(this);
-		InputComponent->RegisterComponent();
-
-		InputComponent->BindAction("c_interaction", IE_Pressed, this, &AInteractableInput::Interact);
-		PlayerController->PushInputComponent(InputComponent);
-	}*/
-
-
-
-
-	//InputComponent = NewObject<UInputComponent>(this);
-	//if (InputComponent)
-	//{
-	//	InputComponent->RegisterComponent();
-	//	InputComponent->BindAction("c_interaction", IE_Pressed, this, &AInteractableInput::Interact);
-
-	//	UE_LOG(LogTemp, Warning, TEXT("setted"));
-	//}
+	} 
 }
 
-void AInteractableInput::Remove(AInteractableInput* selfInterctable)
+void AInteractableInput::RemoveInteractableFromManager(AInteractableInput* selfInterctable)
 {
 	InteractableManager->RemoveInteractable(selfInterctable);
 }

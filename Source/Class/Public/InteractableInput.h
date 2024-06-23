@@ -1,10 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h" 
 #include "GameFramework/Actor.h"  
 #include "c_InteractableManager.h"
+
 //esto siempre debajo
 #include "InteractableInput.generated.h"  
 
@@ -36,7 +35,7 @@ public:
 	void SetupInputComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void Remove(AInteractableInput* selfInterctable);
+	void RemoveInteractableFromManager(AInteractableInput* selfInterctable);
 
 #pragma region Events
 
