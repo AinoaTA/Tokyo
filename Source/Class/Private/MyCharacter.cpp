@@ -2,6 +2,10 @@
 
 
 #include "MyCharacter.h"
+#include "GameFramework/Actor.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/AnimMontage.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -18,17 +22,43 @@ void AMyCharacter::BeginPlay()
 	
 }
 
+void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	// Bind the jump actions
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AMyCharacter::StartJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AMyCharacter::StopJump);
+}
+
+void AMyCharacter::StartJump()
+{
+    bPressedJump = true;
+
+    if (JumpMontage)
+    {
+        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+        if (AnimInstance && !AnimInstance->Montage_IsPlaying(JumpMontage))
+        {
+            AnimInstance->Montage_Play(JumpMontage);
+        }
+    }
+}
+void AMyCharacter::StopJump()
+{
+    bPressedJump = false;
+}
+
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
 }
 
-// Called to bind functionality to input
-void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
+
+
+
 
